@@ -10,6 +10,11 @@
 #include "sdtype.h"
 #include "sdsize.h"
 #endif
+
+#if defined WIN32
+#include <windows.h>
+#endif
+
 #include "acexport.h"
 
 

@@ -2,7 +2,7 @@
 #
 # Copyright C 2001-2002 Open System Consultants
 # Author: Mike McCauley (mikem@open.com.au)
-# $Id: Makefile.PL,v 1.1 2001/07/28 02:40:47 mikem Exp mikem $
+# $Id: Makefile.PL,v 1.2 2004/06/16 01:04:01 mikem Exp mikem $
 
 
 # On Unix, Set your ACE/Agent version number here. Version 4 has bugs and is deprecated
@@ -12,10 +12,10 @@ $sd_version = 5;
 # Adjust these paths to suit your system
 if ($^O eq 'MSWin32')
 {
-    # Windows
-    $libs = ['-L"C:\Program Files\Microsoft Visual Studio\VC98\Lib" -LC:\Ace\acesupp\nt_clnt\sdk\lib -laceclnt'];
-    $inc = '-IC:\Ace\acesupp\nt_clnt\sdk\include',
-    $define = '',
+    # Windows. Assumes the SDK has been installed in C:\ACEAgentSDK
+    $libs = ['-L"C:\Program Files\Microsoft Visual Studio\VC98\Lib" -LC:\ACEAgentSDK\lib\nt_i386 -laceclnt'];
+    $inc = '-IC:\ACEAgentSDK\inc',
+    $define = "-DSD_VERSION=$sd_version",
 }
 else
 {
@@ -42,7 +42,9 @@ else
     }
 }
 
+
 use ExtUtils::MakeMaker;
+
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
 WriteMakefile(
@@ -57,3 +59,5 @@ WriteMakefile(
 	        'ABSTRACT' => 'Access to SecurID ACE version 4 and up',
 	        ) : (),
 );
+
+

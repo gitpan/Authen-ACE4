@@ -35,13 +35,13 @@ Solaris (and HPUX, it is reported)
 has a bug that prevents AceCloseAuth completing. 
 You will need to get a patched version of libaceclnt.a
 from RSA Security, or Open System Consultants, else upgrade
-to version 5. ACE/Server 4.1 in now deptecated, so we recommend 
-upgrading.
+to version 5. ACE/Server 4.1 in now deprecated, so we recommend 
+upgrading to version 5.
 
 The machine that you run the tests on must be a valid ACE client, and
 your username should be activated on that machine. The system you are
 going to be testing from must already have the sdconf.rec
-file installed (typicaly in /var/ace/sdconf.rec on Unix). Further
+file installed (typically in /var/ace/sdconf.rec on Unix). On Unix
 the user that runs the program that uses Authen-ACE4 must have
 read access to the sdconf.rec file.
 

@@ -1,7 +1,7 @@
 $Id: Changes,v 1.1 2001/07/28 02:40:47 mikem Exp mikem $
 Changes file for Authen::ACE4
 
-Copyright (C) 2001 Open System Consultants
+Copyright (C) 2001-2004 Open System Consultants
 
 1.0 12 Jul 2001
 Initial release
@@ -12,3 +12,6 @@ Improvements and clarification to installation documentation
 Patch contributed by "Paul Ewing Jr." <ewing@ima.umn.edu> adding
 asynchronous client interface, Pin SD_Init SD_Check SD_Next etc.
 Thanks Paul!
+
+1.2 16 Jun 2004
+Improved compile on Windows Server 2003 with latest Windows SDK

@@ -7,4 +7,9 @@
 		<ARCHITECTURE NAME="MSWin32-x86-multi-thread" />
 		<CODEBASE HREF="MSWin32-x86-multi-thread/Authen-ACE4.ppm.tar.gz" />
 	</IMPLEMENTATION>
+	<IMPLEMENTATION>
+		<OS NAME="MSWin32" />
+		<ARCHITECTURE NAME="MSWin32-x86-multi-thread-5.8" />
+		<CODEBASE HREF="MSWin32-x86-multi-thread-5.8/Authen-ACE4.ppm.tar.gz" />
+	</IMPLEMENTATION>
 </SOFTPKG>
