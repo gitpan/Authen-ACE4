@@ -1,0 +1,47 @@
+This module will build on Unix and Windows NT with the ACE/Server
+client libraries version 4.1 or better.
+
+It requires the SecurID ACE/Agent client library or SDK
+4.1 or better to be installed on your host first.
+
+Build instructions:
+
+1. Edit Makefile.PL, set sd_version to 4 or 5, depending on which
+   version of the ACE/Agent library you are using.
+   Then check and perhaps change the definition of $acedir to 
+   the location of your ACE/Agent installation
+2. perl Makefile.PL
+3. make
+4. make test
+5. make install
+
+Notes:
+
+Before you can test this package, you will need to have a working ACE
+server, and a SecurID token assigned to a username that you can 
+test with. 
+
+The standard ACE/Agent library shipped with ACE/Server 4.1 for
+Solaris has a bug that prevents AceCloseAuth completing. 
+You will need to get a patched version of libaceclnt.a
+from RSA Security, or Open System Consultants, else upgrade
+to version 5.
+
+The machine that you run the tests on must be a valid ACE client, and
+your username should be activated on that machine. The system you are
+going to be testing from must already have the sdconf.rec
+file installed (typicaly in /var/ace/sdconf.rec on Unix).
+
+On Unix, you may need to set the VAR_ACE environment variable to 
+point to the location of the sdconf.rec file, else the make test
+portion may fail. The sdconf.rec file is a ACE/Agent configuration
+file that specifies how to contact the ACE/Server eg:
+VAR_ACE=/opt/ace/data make test
+
+Because the interactive nature of SecurID requires you to enter a
+time-sensitive token from a card, you cannot automate the test suite.
+An ACE server will never accept the same token twice, so during the
+testing, you may be prompted to wait for the token on the card
+to change before continuing with the test.
+
+The test program will display all codes in plain text.

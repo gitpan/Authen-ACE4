@@ -1,0 +1,60 @@
+This is the README file for Authen::ACE4, the Perl interface to the
+Security Dynamics' SecurID ACE client version 4.1 or better
+API on Windows and Unix.
+
+To build this module, you must have the SecurID ACE Agent client
+librraies from version 4.1
+or better installed.  To test this module, you must have a SecurID
+ACE/Server installed and running.
+
+Only version 4 API is supported. Legacy functions like sd_auth
+etc are not supported. 
+
+Only synchronous functions like AceStartAuth, AceContinueAuth etc 
+are supported.
+
+This is version 1.0 of Authen::ACE4. It has been built
+and tested on Solaris and Windows NT. Please notify
+us of successful builds on other platforms. Patches accepted.
+
+AVAILABILITY
+
+The latest version of Authen::ACE4 is available from the Comprehensive
+Perl Archive Network (CPAN) or 
+
+http://www.open.com.au/free-downloads
+
+INSTALLATION
+
+See the accompanying INSTALL file for detailed installation
+directions.
+
+EXAMPLES
+
+The eg directory contains a few example scripts. Some of them require
+entering PINs and tokenstoken codes. In these examples, ALL
+ENTERED PINS WILL WILL BE DISPLAYED IN PLAIN TEXT.
+
+SUPPORT
+
+This is unsupported software.
+You can send bug reports and suggestions for improvements
+to the author at mikem@open.com.au. 
+
+FUTURE WORK
+
+Support for asynchronous functions
+new 5.0 versions of legacy functions
+OO interface
+
+COPYRIGHT
+
+This module is Copyright © 2001 Open System Consultants Pty Ltd.
+
+This module is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself. This module is distributed in the
+hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE. The copyright holder of this module can not be held liable
+for any general, special, incidental or consequential damages arising
+out of the use of the module.
