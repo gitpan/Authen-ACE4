@@ -4,7 +4,7 @@
 	<AUTHOR></AUTHOR>
 	<IMPLEMENTATION>
 		<OS NAME="MSWin32" />
-		<ARCHITECTURE NAME="MSWin32-x86-object" />
-		<CODEBASE HREF="" />
+		<ARCHITECTURE NAME="MSWin32-x86-multi-thread" />
+		<CODEBASE HREF="MSWin32-x86-multi-thread/Authen-ACE4.ppm.tar.gz" />
 	</IMPLEMENTATION>
 </SOFTPKG>

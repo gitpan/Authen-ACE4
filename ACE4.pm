@@ -3,7 +3,7 @@
 # Interface to Securid ACE/Server client API
 # Copyright (C) 2001 Open System Consultants
 # Author: Mike McCauley mikem@open.com.au
-# $Id: ACE4.pm,v 1.1 2001/07/28 02:40:47 mikem Exp $
+# $Id: ACE4.pm,v 1.1 2001/07/28 02:40:47 mikem Exp mikem $
 
 package Authen::ACE4;
 
@@ -17,7 +17,7 @@ require DynaLoader;
 @ISA = qw(Exporter DynaLoader);
 # These are all you really need
 @EXPORT_OK = qw(
-	AceInitialise
+	AceInitialize
 	AceStartAuth
 	AceContinueAuth
 	AceCloseAuth
@@ -34,7 +34,7 @@ require DynaLoader;
 	ACM_ACCESS_DENIED
 	ACE_SUCCESS
 );
-$VERSION = '1.0';
+$VERSION = '1.1';
 
 sub AUTOLOAD {
     my $constname;
@@ -55,6 +55,57 @@ sub AUTOLOAD {
 }
 
 bootstrap Authen::ACE4 $VERSION;
+
+
+package Authen::ACE4::Sync;
+
+use Authen::ACE4;
+
+sub Pin {
+    my $self = shift;
+    my $pin = shift;
+
+    return SD_Pin($self->{sd}, $pin);
+}
+
+sub Next {
+    my $self = shift;
+    my $token = shift;
+
+    return SD_Next($self->{sd}, $token);
+}
+
+sub Check {
+    my $self = shift;
+    my ($passcode, $username) = @_;
+
+    return SD_Check($self->{sd}, $passcode, $username);
+}
+
+sub new {
+    my $type = shift;
+    my $self = {};
+
+    $ENV{"VAR_ACE"} = "/var/ace" unless defined($ENV{"VAR_ACE"});
+
+    if (Authen::ACE4::AceInitialize() != 1) {
+        die "Could not read ACE client configuration file in " .
+	    $ENV{"VAR_ACE"} . "\n";
+    }
+
+    $self->{sd} = 0;
+    if (SD_Init($self->{sd}) != Authen::ACE4::ACM_OK()) {
+      die "Failed call to SD_Init\n";
+    }
+
+    bless $self, $type;
+}
+
+sub DESTROY {
+    my $self = shift;
+
+    SD_Close($self->{sd});
+}
 
 
 1;

@@ -3,7 +3,7 @@
 // Glue between ACE.pm and ACE/Server client API
 // Copyright (C) 2001 Open System Consultants
 // Author Mike McCauley mikem@open.com.au
-// $Id: ACE4.xs,v 1.1 2001/07/28 02:40:47 mikem Exp $
+// $Id: ACE4.xs,v 1.1 2001/07/28 02:40:47 mikem Exp mikem $
 
 
 #include "ace.h"
@@ -76,13 +76,15 @@ constant()
   OUTPUT:
     RETVAL
 
-void
+SD_BOOL
 AceInitialize()
 	CODE:
 #if defined UNIX || SD_VERSION >= 5
     // Not present on NT in Version 4
-    AceInitialize();
+    RETVAL = AceInitialize();
 #endif
+	OUTPUT:
+	RETVAL
 
 void
 AceStartAuth(userID)
@@ -284,3 +286,31 @@ AceGetUserSelectable(handle)
 int
 AceCloseAuth(handle)
     int	handle
+
+MODULE = Authen::ACE4		PACKAGE = Authen::ACE4::Sync
+
+int
+SD_Init(sd)
+	SDI_HANDLE	&sd
+    OUTPUT:
+	sd
+
+int
+SD_Check(sd, password="", username)
+	SDI_HANDLE	sd
+	char *		password
+	char *		username
+
+int 
+SD_Next(sd, next)
+	SDI_HANDLE	sd
+	char *		next
+
+int
+SD_Pin(sd, pin)
+	SDI_HANDLE	sd
+	char *		pin
+
+int
+SD_Close(sd)
+	SDI_HANDLE	sd

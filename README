@@ -1,19 +1,21 @@
 This is the README file for Authen::ACE4, the Perl interface to the
-Security Dynamics' SecurID ACE client version 4.1 or better
+RSA SecurID ACE client version 4.1, 5 or better
 API on Windows and Unix.
 
 To build this module, you must have the SecurID ACE Agent client
-librraies from version 4.1
+libraries from version 4.1, version 5
 or better installed.  To test this module, you must have a SecurID
 ACE/Server installed and running.
 
 Only version 4 API is supported. Legacy functions like sd_auth
 etc are not supported. 
 
-Only synchronous functions like AceStartAuth, AceContinueAuth etc 
+Synchronous functions like AceStartAuth, AceContinueAuth etc 
 are supported.
+Asynchronous functions like SD_Init, SD_Check, SD_Next etc are also supported,
+courtesy of "Paul Ewing Jr." <ewing@ima.umn.edu>
 
-This is version 1.0 of Authen::ACE4. It has been built
+This is version 1.1 of Authen::ACE4. It has been built
 and tested on Solaris and Windows NT. Please notify
 us of successful builds on other platforms. Patches accepted.
 
@@ -22,7 +24,7 @@ AVAILABILITY
 The latest version of Authen::ACE4 is available from the Comprehensive
 Perl Archive Network (CPAN) or 
 
-http://www.open.com.au/free-downloads
+http://www.open.com.au/radiator/free-downloads
 
 INSTALLATION
 
@@ -43,8 +45,7 @@ to the author at mikem@open.com.au.
 
 FUTURE WORK
 
-Support for asynchronous functions
-new 5.0 versions of legacy functions
+New 5.0 versions of legacy functions
 OO interface
 
 COPYRIGHT

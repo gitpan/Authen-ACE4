@@ -1,13 +1,22 @@
 This module will build on Unix and Windows NT with the ACE/Server
-client libraries version 4.1 or better.
+client libraries version 4.1, 5 or better.
 
 It requires the SecurID ACE/Agent client library or SDK
 4.1 or better to be installed on your host first.
 
-Build instructions:
+If you are using ACE/Agent 4.4 for Windows NT, it will require you to
+copy by hand the acesupp directory from the CDROM to c:\ace on you local
+disk.1
 
+If you are using ACE/Agent Authentication API for Unix, you will need
+to copy by hand the ACEAgentSDK directory from the Authentication API
+cdrom to the ACE directory, then adjust the paths in Makefile.PL
+to suit.
+
+Build instructions:
+0. Install ACE/Server, ACE/Agent and ACE/Agent Authentication API
 1. Edit Makefile.PL, set sd_version to 4 or 5, depending on which
-   version of the ACE/Agent library you are using.
+   version of the ACE/Agent Authentication API library you are using.
    Then check and perhaps change the definition of $acedir to 
    the location of your ACE/Agent installation
 2. perl Makefile.PL
@@ -22,15 +31,19 @@ server, and a SecurID token assigned to a username that you can
 test with. 
 
 The standard ACE/Agent library shipped with ACE/Server 4.1 for
-Solaris has a bug that prevents AceCloseAuth completing. 
+Solaris (and HPUX, it is reported)
+has a bug that prevents AceCloseAuth completing. 
 You will need to get a patched version of libaceclnt.a
 from RSA Security, or Open System Consultants, else upgrade
-to version 5.
+to version 5. ACE/Server 4.1 in now deptecated, so we recommend 
+upgrading.
 
 The machine that you run the tests on must be a valid ACE client, and
 your username should be activated on that machine. The system you are
 going to be testing from must already have the sdconf.rec
-file installed (typicaly in /var/ace/sdconf.rec on Unix).
+file installed (typicaly in /var/ace/sdconf.rec on Unix). Further
+the user that runs the program that uses Authen-ACE4 must have
+read access to the sdconf.rec file.
 
 On Unix, you may need to set the VAR_ACE environment variable to 
 point to the location of the sdconf.rec file, else the make test
