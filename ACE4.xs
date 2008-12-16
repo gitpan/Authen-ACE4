@@ -97,7 +97,7 @@ AceStartAuth(userID)
     SD_BOOL	echoFlag;
     SD_I32	respTimeout;
     SD_I32	nextRespLen;
-    char	promptStr[1000];
+    char	promptStr[512];
     SD_I32	promptStrLen = sizeof(promptStr);
     SD_ERROR	result;
 
@@ -116,10 +116,7 @@ AceStartAuth(userID)
     PUSHs(sv_2mortal(newSViv(echoFlag)));
     PUSHs(sv_2mortal(newSViv(respTimeout)));
     PUSHs(sv_2mortal(newSViv(nextRespLen)));
-    PUSHs(sv_2mortal(newSVpv(promptStr, promptStrLen)));
-
-
-
+    PUSHs(sv_2mortal(newSVpv(promptStr, strlen(promptStr))));
 
 
 void
@@ -133,7 +130,7 @@ AceContinueAuth(handle, resp)
     SD_BOOL	echoFlag;
     SD_I32	respTimeout;
     SD_I32	nextRespLen;
-    char	promptStr[1000];
+    char	promptStr[512];
     SD_I32	promptStrLen = sizeof(promptStr);
     SD_ERROR	result;
 
@@ -152,7 +149,8 @@ AceContinueAuth(handle, resp)
     PUSHs(sv_2mortal(newSViv(echoFlag)));
     PUSHs(sv_2mortal(newSViv(respTimeout)));
     PUSHs(sv_2mortal(newSViv(nextRespLen)));
-    PUSHs(sv_2mortal(newSVpv(promptStr, promptStrLen)));
+    // Sigh: promptStrLen is unreliable with the 6.1 SDK and AM 7.1
+    PUSHs(sv_2mortal(newSVpv(promptStr, strlen(promptStr))));
 
 
 int
@@ -161,11 +159,10 @@ AceGetAuthenticationStatus(handle)
 
     PPCODE:
     SD_I32	authStatus = ACM_ACCESS_DENIED;
-    int		result;
-    result = AceGetAuthenticationStatus(handle, &authStatus);
+    RETVAL = AceGetAuthenticationStatus(handle, &authStatus);
     EXTEND(sp, 1);
-    PUSHs(sv_2mortal(newSViv(result)));
-    if (result == ACE_SUCCESS)
+    PUSHs(sv_2mortal(newSViv(RETVAL)));
+    if (RETVAL == ACE_SUCCESS)
     {
     	EXTEND(sp, 1);
     	PUSHs(sv_2mortal(newSViv(authStatus)));
@@ -177,11 +174,10 @@ AceGetAlphanumeric(handle)
 
     PPCODE:
     char        val;
-    int		result;
-    result = AceGetAlphanumeric(handle, &val);
+    RETVAL = AceGetAlphanumeric(handle, &val);
     EXTEND(sp, 1);
-    PUSHs(sv_2mortal(newSViv(result)));
-    if (result == ACE_SUCCESS)
+    PUSHs(sv_2mortal(newSViv(RETVAL)));
+    if (RETVAL == ACE_SUCCESS)
     {
     	EXTEND(sp, 1);
     	PUSHs(sv_2mortal(newSViv(val)));
@@ -193,11 +189,10 @@ AceGetMaxPinLen(handle)
 
     PPCODE:
     char        val;
-    int		result;
-    result = AceGetMaxPinLen(handle, &val);
+    RETVAL = AceGetMaxPinLen(handle, &val);
     EXTEND(sp, 1);
-    PUSHs(sv_2mortal(newSViv(result)));
-    if (result == ACE_SUCCESS)
+    PUSHs(sv_2mortal(newSViv(RETVAL)));
+    if (RETVAL == ACE_SUCCESS)
     {
     	EXTEND(sp, 1);
     	PUSHs(sv_2mortal(newSViv(val)));
@@ -209,11 +204,10 @@ AceGetMinPinLen(handle)
 
     PPCODE:
     char        val;
-    int		result;
-    result = AceGetMinPinLen(handle, &val);
+    RETVAL = AceGetMinPinLen(handle, &val);
     EXTEND(sp, 1);
-    PUSHs(sv_2mortal(newSViv(result)));
-    if (result == ACE_SUCCESS)
+    PUSHs(sv_2mortal(newSViv(RETVAL)));
+    if (RETVAL == ACE_SUCCESS)
     {
     	EXTEND(sp, 1);
     	PUSHs(sv_2mortal(newSViv(val)));
@@ -224,12 +218,11 @@ AceGetShell(handle)
     int	handle
 
     PPCODE:
-    char        val[1000];
-    int		result;
-    result = AceGetShell(handle, val);
+    char        val[512];
+    RETVAL = AceGetShell(handle, val);
     EXTEND(sp, 1);
-    PUSHs(sv_2mortal(newSViv(result)));
-    if (result == ACE_SUCCESS)
+    PUSHs(sv_2mortal(newSViv(RETVAL)));
+    if (RETVAL == ACE_SUCCESS)
     {
     	EXTEND(sp, 1);
 	PUSHs(sv_2mortal(newSVpv(val, strlen(val))));
@@ -240,12 +233,11 @@ AceGetSystemPin(handle)
     int	handle
 
     PPCODE:
-    char        val[1000];
-    int		result;
-    result = AceGetSystemPin(handle, val);
+    char        val[512];
+    RETVAL = AceGetSystemPin(handle, val);
     EXTEND(sp, 1);
-    PUSHs(sv_2mortal(newSViv(result)));
-    if (result == ACE_SUCCESS)
+    PUSHs(sv_2mortal(newSViv(RETVAL)));
+    if (RETVAL == ACE_SUCCESS)
     {
     	EXTEND(sp, 1);
 	PUSHs(sv_2mortal(newSVpv(val, strlen(val))));
@@ -257,11 +249,10 @@ AceGetTime(handle)
 
     PPCODE:
     INT32BIT   val;
-    int		result;
-    result = AceGetTime(handle, &val);
+    RETVAL = AceGetTime(handle, &val);
     EXTEND(sp, 1);
-    PUSHs(sv_2mortal(newSViv(result)));
-    if (result == ACE_SUCCESS)
+    PUSHs(sv_2mortal(newSViv(RETVAL)));
+    if (RETVAL == ACE_SUCCESS)
     {
     	EXTEND(sp, 1);
     	PUSHs(sv_2mortal(newSViv(val)));
@@ -273,15 +264,20 @@ AceGetUserSelectable(handle)
 
     PPCODE:
     char        val;
-    int		result;
-    result = AceGetUserSelectable(handle, &val);
+    RETVAL = AceGetUserSelectable(handle, &val);
     EXTEND(sp, 1);
-    PUSHs(sv_2mortal(newSViv(result)));
-    if (result == ACE_SUCCESS)
+    PUSHs(sv_2mortal(newSViv(RETVAL)));
+    if (RETVAL == ACE_SUCCESS)
     {
     	EXTEND(sp, 1);
     	PUSHs(sv_2mortal(newSViv(val)));
     }
+
+int
+AceSetUserClientAddress(handle, address)
+    int handle
+    unsigned char* address
+
 
 int
 AceCloseAuth(handle)

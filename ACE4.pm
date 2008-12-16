@@ -34,7 +34,7 @@ require DynaLoader;
 	ACM_ACCESS_DENIED
 	ACE_SUCCESS
 );
-$VERSION = '1.2';
+$VERSION = '1.3';
 
 sub AUTOLOAD {
     my $constname;

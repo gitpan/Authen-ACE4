@@ -7,7 +7,8 @@
 
 # On Unix, Set your ACE/Agent version number here. Version 4 has bugs and is deprecated
 #$sd_version = 4;
-$sd_version = 5;
+#$sd_version = 5;
+$sd_version = 6;
 
 # Adjust these paths to suit your system
 if ($^O eq 'MSWin32')
@@ -30,16 +31,23 @@ else
 	$acedir = '/opt/ace/ace4';
 	$libs = ["-L$acedir/examples/multithread -laceclnt -lpthread"];
 	$inc = "-I$acedir/examples/multithread -I$acedir/examples";
-	$define = '-DUNIX -DSD_VERSION=4',
     }
-    else
+    elsif ($sd_version == 5)
     {
 	# For V 5.0:
 	$acedir = '/opt/ace/ACEAgentSDK';
 	$libs = ["-L$acedir/lib/sol -laceclnt -lpthread"];
 	$inc = "-I$acedir/inc -I$acedir";
-	$define = '-DUNIX -DSD_VERSION=5',
     }
+    else
+    {
+	# For V 6.0:
+	$acedir = '/opt/ace/ACEAgentSDK';
+	$libs = ["-L$acedir/lib/sol -laceclnt -lpthread"];
+	$libs = ["-L$acedir/lib/lnx -laceclnt"] if `uname` =~ /Linux/;
+	$inc = "-I$acedir/inc";
+    }
+    $define = "-DUNIX -DSD_VERSION=$sd_version",
 }
 
 

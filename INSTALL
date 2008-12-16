@@ -1,8 +1,10 @@
-This module will build on Unix and Windows NT with the ACE/Server
-client libraries version 4.1, 5 or better.
+This module will build on Unix, Linux, Solaris, Windows NT, Windows Server
+ 200x with the ACE/Server client libraries version 4.1, 5.x and 6.1.
 
 It requires the SecurID ACE/Agent client library or SDK
-4.1 or better to be installed on your host first.
+4.1 or better to be installed on your host first. The preferred version is
+6.1. You will need to get ACEAgentSDK61.zip from
+https://knowledge.rsasecurity.com, using your RSA support contract details.
 
 If you are using ACE/Agent 4.4 for Windows NT, it will require you to
 copy by hand the acesupp directory from the CDROM to c:\ace on you local
@@ -13,12 +15,17 @@ to copy by hand the ACEAgentSDK directory from the Authentication API
 cdrom to the ACE directory, then adjust the paths in Makefile.PL
 to suit.
 
-Build instructions:
-0. Install ACE/Server, ACE/Agent and ACE/Agent Authentication API
-1. Edit Makefile.PL, set sd_version to 4 or 5, depending on which
-   version of the ACE/Agent Authentication API library you are using.
-   Then check and perhaps change the definition of $acedir to 
-   the location of your ACE/Agent installation
+Build instructions Windows
+0. Obtain ACEAgentSDK61.zip from https://knowledge.rsasecurity.com
+1. Unzip ACEAgentSDK61.zip into C:\ so it appears as C:\ACEAgentSDK
+2. perl Makefile.PL
+3. nmake
+4. nmake test
+5. nmake install
+
+Build instructions Unix, Linux, Solaris
+0. Obtain ACEAgentSDK61.zip from https://knowledge.rsasecurity.com
+1. Unzip ACEAgentSDK61.zip into /opt/ace so it appears as /opr/ace/ACEAgentSDK
 2. perl Makefile.PL
 3. make
 4. make test
@@ -45,10 +52,11 @@ file installed (typically in /var/ace/sdconf.rec on Unix). On Unix
 the user that runs the program that uses Authen-ACE4 must have
 read access to the sdconf.rec file.
 
-On Unix, you may need to set the VAR_ACE environment variable to 
-point to the location of the sdconf.rec file, else the make test
-portion may fail. The sdconf.rec file is a ACE/Agent configuration
-file that specifies how to contact the ACE/Server eg:
+On Unix, you will need to set the VAR_ACE environment variable to point to the
+location of a writeable directory containing the sdconf.rec file, else the
+make test portion may fail. The sdconf.rec file is a ACE/Agent configuration
+file that specifies how to contact the ACE/Server 
+eg: 
 VAR_ACE=/opt/ace/data make test
 
 Because the interactive nature of SecurID requires you to enter a
