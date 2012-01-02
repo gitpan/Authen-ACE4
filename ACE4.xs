@@ -3,7 +3,7 @@
 // Glue between ACE.pm and ACE/Server client API
 // Copyright (C) 2001 Open System Consultants
 // Author Mike McCauley mikem@open.com.au
-// $Id: ACE4.xs,v 1.1 2001/07/28 02:40:47 mikem Exp mikem $
+// $Id: ACE4.xs,v 1.2 2011/12/29 06:03:24 mikem Exp $
 
 
 #include "ace.h"

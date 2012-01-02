@@ -3,7 +3,7 @@
 # Interface to Securid ACE/Server client API
 # Copyright (C) 2001 Open System Consultants
 # Author: Mike McCauley mikem@open.com.au
-# $Id: ACE4.pm,v 1.1 2001/07/28 02:40:47 mikem Exp mikem $
+# $Id: ACE4.pm,v 1.2 2011/12/29 06:03:24 mikem Exp mikem $
 
 package Authen::ACE4;
 
@@ -34,7 +34,7 @@ require DynaLoader;
 	ACM_ACCESS_DENIED
 	ACE_SUCCESS
 );
-$VERSION = '1.3';
+$VERSION = '1.4';
 
 sub AUTOLOAD {
     my $constname;
@@ -114,7 +114,7 @@ __END__
 
 =head1 NAME
 
-Authen::ACE4 - Perl extension for accessing a SecurID ACE server
+Authen::ACE4 - Perl extension for accessing a SecurID ACE server or RSA Authenticaiotn Manager
 
 =head1 SYNOPSIS
 
@@ -156,7 +156,7 @@ before any other API function is called.
 
 On Unix, the environment variable VAR_ACE is used to find
 the ACE/Server sdconf.rec file, which specifies how to
-contact the ACE server. The
+contact the ACE server and/or Authentication Manager. The
 default is /var/ace/data. If your sdconf.rec is in a different location
 you must specify VAR_ACE eg:
 
